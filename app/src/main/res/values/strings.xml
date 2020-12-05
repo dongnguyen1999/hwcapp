@@ -1,0 +1,366 @@
+<resources>
+  <string name="app_name">Hw App</string>
+  <string name="imv_description">Character image</string>
+  <string name="btnlb_take_picture">Take picture</string>
+  <string name="lb_prediction">Nhãn dự đoán</string>
+  <string name="lb_predicted_label">T</string>
+  <string name="btnlb_continue">Tiếp tục</string>
+  <string name="o1">O
+</string>
+  <string name="a2_a2_f">ẩ
+</string>
+  <string name="dau_cham">\'.\'
+</string>
+  <string name="e2_j">ẹ
+</string>
+  <string name="e1_e1">Ê
+</string>
+  <string name="a1_a1_j">ậ
+</string>
+  <string name="y2_j">ỵ
+</string>
+  <string name="num_7">7
+</string>
+  <string name="num_0">0
+</string>
+  <string name="e2_r">ẻ
+</string>
+  <string name="j1">J
+</string>
+  <string name="a2_r">ả
+</string>
+  <string name="a2_w">ă
+</string>
+  <string name="o2_j">ọ
+</string>
+  <string name="u1_wf">Ừ
+</string>
+  <string name="a1_wr">Ẳ
+</string>
+  <string name="a2_a2_j">ậ
+</string>
+  <string name="ky_tu_trong">\'  \'</string>
+  <string name="y1_j">Ỵ
+</string>
+  <string name="o2_o2_j">ộ
+</string>
+  <string name="a2_a2_r">ẩ
+</string>
+  <string name="a1_wx">Ẵ
+</string>
+  <string name="u1_wj">Ự
+</string>
+  <string name="o2_o2_s">ố
+</string>
+  <string name="y2_f">ỳ
+</string>
+  <string name="a1_j">Ạ
+</string>
+  <string name="g1">G
+</string>
+  <string name="a2_wf">ằ
+</string>
+  <string name="a2_wr">ẳ
+</string>
+  <string name="y2_s">ý
+</string>
+  <string name="a2_j">ạ
+</string>
+  <string name="f1">F
+</string>
+  <string name="a1_wj">Ặ
+</string>
+  <string name="r1">R
+</string>
+  <string name="c1">C
+</string>
+  <string name="p2">p
+</string>
+  <string name="c2">c
+</string>
+  <string name="o2_x">õ
+</string>
+  <string name="i2_s">í
+</string>
+  <string name="u2_f">ù
+</string>
+  <string name="a1_a1_s">Ấ
+</string>
+  <string name="a2_a2">â
+</string>
+  <string name="num_1">1
+</string>
+  <string name="a2_ws">ắ
+</string>
+  <string name="o2_o2_r">ổ
+</string>
+  <string name="o2_o2_f">ồ
+</string>
+  <string name="b1">B
+</string>
+  <string name="i1_s">Í
+</string>
+  <string name="q2">q
+</string>
+  <string name="a2_a2_s">ấ
+</string>
+  <string name="e2_x">ẽ
+</string>
+  <string name="o2">o
+</string>
+  <string name="a2_wx">ẵ
+</string>
+  <string name="h2">h
+</string>
+  <string name="k1">K
+</string>
+  <string name="l1">L
+</string>
+  <string name="m2">m
+</string>
+  <string name="e2_e2">ê
+</string>
+  <string name="y1">Y
+</string>
+  <string name="i1_f">Ì
+</string>
+  <string name="y1_f">Ỳ
+</string>
+  <string name="e1_e1_j">Ệ
+</string>
+  <string name="dau_cham_than">\'!\'
+</string>
+  <string name="e1_r">Ẻ
+</string>
+  <string name="g2">g
+</string>
+  <string name="o2_wx">ỡ
+</string>
+  <string name="a2_a2_x">ẫ
+</string>
+  <string name="a1_a1">Â
+</string>
+  <string name="o2_s">ó
+</string>
+  <string name="d1_d1">Đ
+</string>
+  <string name="o1_s">Ó
+</string>
+  <string name="u2_ws">ứ
+</string>
+  <string name="o2_wr">ở
+</string>
+  <string name="s2">s
+</string>
+  <string name="w1">W
+</string>
+  <string name="e2_e2_x">ễ
+</string>
+  <string name="r2">r
+</string>
+  <string name="a1_f">À
+</string>
+  <string name="i1_x">Ĩ
+</string>
+  <string name="t1">T
+</string>
+  <string name="m1">M
+</string>
+  <string name="z2">z
+</string>
+  <string name="o1_f">Ò
+</string>
+  <string name="z1">Z
+</string>
+  <string name="u2_j">ụ
+</string>
+  <string name="o2_r">ỏ
+</string>
+  <string name="e2_e2_f">ề
+</string>
+  <string name="i2_j">ị
+</string>
+  <string name="a1_r">Ả
+</string>
+  <string name="a2">a
+</string>
+  <string name="p1">P
+</string>
+  <string name="u2_wx">ữ
+</string>
+  <string name="num_5">5
+</string>
+  <string name="y1_r">Ỷ
+</string>
+  <string name="e1">E
+</string>
+  <string name="d2_d2">đ
+</string>
+  <string name="y2_x">ỹ
+</string>
+  <string name="num_4">4
+</string>
+  <string name="a1_x">Ã
+</string>
+  <string name="e2_f">è
+</string>
+  <string name="q1">Q
+</string>
+  <string name="e1_f">È
+</string>
+  <string name="e1_x">Ẽ
+</string>
+  <string name="a1_a1_x">Ẫ
+</string>
+  <string name="u2_r">ủ
+</string>
+  <string name="o2_f">ò
+</string>
+  <string name="u2_wf">ừ
+</string>
+  <string name="v1">V
+</string>
+  <string name="l2">l
+</string>
+  <string name="a1_wf">Ằ
+</string>
+  <string name="b2">b
+</string>
+  <string name="dau_a_cong">\@
+</string>
+  <string name="y1_x">Ỹ
+</string>
+  <string name="s1">S
+</string>
+  <string name="j2">j
+</string>
+  <string name="e1_e1_x">Ễ
+</string>
+  <string name="v2">v
+</string>
+  <string name="hai_cham">\':\'
+</string>
+  <string name="i1">I
+</string>
+  <string name="a2_f">à
+</string>
+  <string name="num_8">8
+</string>
+  <string name="o2_w">ơ
+</string>
+  <string name="i2_f">ì
+</string>
+  <string name="h1">H
+</string>
+  <string name="e1_e1_r">ể
+</string>
+  <string name="o2_wf">ờ
+</string>
+  <string name="e2_e2_j">ệ
+</string>
+  <string name="y1_s">Ý
+</string>
+  <string name="a1">A
+</string>
+  <string name="o2_wj">ợ
+</string>
+  <string name="t2">t
+</string>
+  <string name="u2_w">ư
+</string>
+  <string name="a1_s">Á
+</string>
+  <string name="a1_w">Ă
+</string>
+  <string name="e1_j">Ẹ
+</string>
+  <string name="num_3">3
+</string>
+  <string name="u2_x">ũ
+</string>
+  <string name="u2_s">ú
+</string>
+  <string name="e2">e
+</string>
+  <string name="x2">x
+</string>
+  <string name="e1_s">É
+</string>
+  <string name="u1">U
+</string>
+  <string name="o2_o2_x">ỗ
+</string>
+  <string name="e1_e1_s">Ế
+</string>
+  <string name="i1_r">Ỉ
+</string>
+  <string name="x1">X
+</string>
+  <string name="o1_o1">Ô
+</string>
+  <string name="n1">N
+</string>
+  <string name="d2">d
+</string>
+  <string name="u2_wr">ử
+</string>
+  <string name="num_6">6
+</string>
+  <string name="a1_ws">Ắ
+</string>
+  <string name="o1_w">Ơ
+</string>
+  <string name="i1_j">Ị
+</string>
+  <string name="o2_ws">ớ
+</string>
+  <string name="i2_r">ỉ
+</string>
+  <string name="u2_wj">ự
+</string>
+  <string name="f2">f
+</string>
+  <string name="u2">u
+</string>
+  <string name="a1_a1_f">Ầ
+</string>
+  <string name="k2">k
+</string>
+  <string name="num_9">9
+</string>
+  <string name="e1_e1_f">Ề
+</string>
+  <string name="n2">n
+</string>
+  <string name="e2_e2_s">ế
+</string>
+  <string name="i2">i
+</string>
+  <string name="y2">y
+</string>
+  <string name="a2_wj">ặ
+</string>
+  <string name="i2_x">ĩ
+</string>
+  <string name="dau_phay">\',\'</string>
+  <string name="u1_s">Ú
+</string>
+  <string name="num_2">2</string>
+  <string name="o2_o2">ô
+</string>
+  <string name="d1">D
+</string>
+  <string name="o1_j">Ọ
+</string>
+  <string name="e2_e2_r">ể
+</string>
+  <string name="a2_x">ã
+</string>
+  <string name="a2_s">á
+</string>
+  <string name="e2_s">é
+</string>
+  <string name="a1_a1_r">Ẩ
+</string>
+  <string name="y2_r">ỷ</string>
+</resources>
