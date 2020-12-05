@@ -18,36 +18,27 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
-import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.ndong.hwapp.utils.ImageUtils;
+import com.ndong.hwapp.utils.SharedPreferencesUtils;
+import com.ndong.hwapp.view.Rectangle;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
   private PreviewView cameraPreview;
-  private ImageButton btnCapture;
-  private FrameLayout cameraContainer;
-  private SeekBar sbResizeRect;
-  private DrawView rectangle;
+  private Rectangle rectangle;
   private Camera camera;
   private Preview preview;
   private ImageCapture imageCapture;
@@ -63,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     cameraPreview = findViewById(R.id.cameraPreview);
-    btnCapture = findViewById(R.id.btnCapture);
-    cameraContainer = findViewById(R.id.cameraContainer);
-    sbResizeRect = findViewById(R.id.sbResizeRect);
+    ImageButton btnCapture = findViewById(R.id.btnCapture);
+    FrameLayout cameraContainer = findViewById(R.id.cameraContainer);
+    SeekBar sbResizeRect = findViewById(R.id.sbResizeRect);
 
     DisplayMetrics displayMetrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     screenSize = new Size(displayMetrics.widthPixels, displayMetrics.heightPixels);
 
     int minRectSize = (int) (MIN_RECT_FACTOR*screenSize.getWidth());
-    rectangle = new DrawView(this, new Size(minRectSize, minRectSize));
+    rectangle = new Rectangle(this, minRectSize);
     cameraContainer.addView(rectangle);
 
     sbResizeRect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -81,9 +72,8 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         int size = (int) (minSize + ((maxSize-minSize)/100.0)*progress);
-        rectangle.setSize(new Size(size, size));
-        cameraContainer.removeView(rectangle);
-        cameraContainer.addView(rectangle);
+        rectangle.setSize(size);
+        rectangle.invalidate();
       }
 
       @Override
@@ -133,23 +123,25 @@ public class MainActivity extends AppCompatActivity {
   private void takePhoto() {
     try {
       imageCapture.takePicture(ContextCompat.getMainExecutor(this), new ImageCapture.OnImageCapturedCallback() {
-            @Override
-            public void onCaptureSuccess(@NonNull ImageProxy image) {
-              Bitmap bitmap = ImageUtils.convertCaptureToBitmap(image);
-              bitmap = ImageUtils.rotateBitmap(bitmap, 90);
-              bitmap = ImageUtils.cropBitmapByRectangle(bitmap, screenSize, rectangle.getSize());
-              ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-              bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+          @Override
+          public void onCaptureSuccess(@NonNull ImageProxy image) {
+            byte[] bytes = ImageUtils.convertCaptureToByteArray(image);
+            SharedPreferencesUtils cache = new SharedPreferencesUtils(MainActivity.this);
+            if (cache.putByteArray(bytes)) {
               Intent intent = new Intent(MainActivity.this, PredictCharacterActivity.class);
-              intent.putExtra("image", byteArrayOutputStream.toByteArray());
+              Bundle bundle = new Bundle();
+              bundle.putSize("screenSize", screenSize);
+              bundle.putInt("rectSize", rectangle.getSize());
+              intent.putExtras(bundle);
               startActivity(intent);
-            }
-
-            @Override
-            public void onError(@NonNull ImageCaptureException exception) {
-              super.onError(exception);
-            }
+            } else Toast.makeText(MainActivity.this, "Lỗi lưu trữ hình ảnh, vui lòng thử lại", Toast.LENGTH_SHORT).show();
           }
+
+          @Override
+          public void onError(@NonNull ImageCaptureException exception) {
+            super.onError(exception);
+          }
+        }
       );
     } catch( Exception e) {
       Log.e("Start camera", e.getMessage());

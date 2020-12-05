@@ -1,6 +1,8 @@
 package com.ndong.hwapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,17 +14,17 @@ import android.util.Log;
 import android.util.Size;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.ndong.hwapp.api.ApiUtils;
+import com.ndong.hwapp.utils.ImageUtils;
+import com.ndong.hwapp.utils.SharedPreferencesUtils;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -32,9 +34,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PredictCharacterActivity extends AppCompatActivity {
-  private LinearLayout mainContainer;
   private ProgressBar indicator;
   private TextView txtLabel;
+  private Bitmap bitmap;
+  private SharedPreferencesUtils cacheUtils;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,14 @@ public class PredictCharacterActivity extends AppCompatActivity {
     final ImageView imageView = findViewById(R.id.imageView);
     txtLabel = findViewById(R.id.txtLabel);
     indicator = findViewById(R.id.indicator);
-    mainContainer = findViewById(R.id.mainContainer);
 
-    byte[] byteArray = getIntent().getByteArrayExtra("image");
-    Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    Size screenSize = getIntent().getExtras().getSize("screenSize");
+    int rectSize = getIntent().getExtras().getInt("rectSize");
+    cacheUtils = new SharedPreferencesUtils(this);
+    bitmap = cacheUtils.getImage();
+    bitmap = ImageUtils.rotateBitmap(bitmap, 90);
+    bitmap = ImageUtils.cropBitmapByRectangle(bitmap, screenSize, rectSize);
+    ApiUtils.changeBaseUrl(cacheUtils.getBaseUrl());
 
     imageView.setImageBitmap(bitmap);
 
@@ -74,10 +81,20 @@ public class PredictCharacterActivity extends AppCompatActivity {
     assert savedImage != null;
     RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), savedImage);
     MultipartBody.Part file = MultipartBody.Part.createFormData("image", savedImage.getName(), requestFile);
+    try {
+      ApiUtils.getPredictService();
+    } catch(Exception e) {
+      showErrorFragment();
+      return;
+    }
     ApiUtils.getPredictService().uploadImage(file).enqueue(new Callback<String>() {
       @Override
       public void onResponse(Call<String> call, Response<String> response) {
-        mainContainer.removeView(indicator);
+        if (response.body() == null) {
+          showErrorFragment();
+          return;
+        }
+        indicator.setVisibility(View.GONE);
         String label;
         try {
           int num = Integer.parseInt(response.body());
@@ -91,8 +108,22 @@ public class PredictCharacterActivity extends AppCompatActivity {
       @Override
       public void onFailure(Call<String> call, Throwable t) {
         Log.i("responseError", t.getMessage());
+        showErrorFragment();
       }
     });
+  }
+
+  private void showErrorFragment() {
+    FragmentManager fragmentManager = this.getSupportFragmentManager();
+    ConnectionErrorFragment fragment = new ConnectionErrorFragment();
+    fragment.setActivityCallback(newHost -> {
+      if (!newHost.startsWith("http://")) newHost = "http://" + newHost;
+      ApiUtils.changeBaseUrl(newHost);
+      cacheUtils.putBaseUrl(newHost);
+      callPrediction(bitmap);
+    });
+    FragmentTransaction ft = fragmentManager.beginTransaction();
+    ft.add(R.id.rootContainer, fragment).commit();
   }
 
 }

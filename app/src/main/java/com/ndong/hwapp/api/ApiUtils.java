@@ -1,10 +1,18 @@
 package com.ndong.hwapp.api;
 
-public class ApiUtils {
+import android.util.Log;
 
-  public static final String BASE_URL = "http://76ec84480dbd.ngrok.io";
+import retrofit2.Retrofit;
+
+public class ApiUtils {
+  private static String baseUrl = "http://127.0.0.1";
+
+
+  public static void changeBaseUrl(String baseUrl) {
+    ApiUtils.baseUrl = baseUrl;
+  }
 
   public static PredictService getPredictService() {
-    return RetrofitClient.getClient(BASE_URL).create(PredictService.class);
+    return RetrofitClient.createNewClient(baseUrl).create(PredictService.class);
   }
 }

@@ -363,4 +363,11 @@
   <string name="a1_a1_r">Ẩ
 </string>
   <string name="y2_r">ỷ</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="header_connection_timeout">Lỗi kết nối</string>
+  <string name="body_connection_timeout">Kết nối không thành công!\nCó thể do kết nối không ổn định hoặc tên miền trang chủ bị thay đổi\nVui lòng kiểm tra lại kết nối, hoặc nhập tên host mới:</string>
+  <string name="hint_newhostname">http://</string>
+  <string name="btnlb_oki">Oki</string>
+  <string name="btnlb_cancel">Hủy</string>
 </resources>

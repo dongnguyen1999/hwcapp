@@ -1,4 +1,4 @@
-package com.ndong.hwapp;
+package com.ndong.hwapp.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,11 +17,16 @@ import java.nio.ByteBuffer;
 @SuppressWarnings("ALL")
 public class ImageUtils {
   public static Bitmap convertCaptureToBitmap(ImageProxy image) {
+    byte[] bytes = convertCaptureToByteArray(image);
+    return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+  }
+
+  public static byte[] convertCaptureToByteArray(ImageProxy image) {
     ByteBuffer buffer = image.getPlanes()[0].getBuffer();
     byte[] bytes = new byte[buffer.remaining()];
     buffer.get(bytes);
     image.close();
-    return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    return bytes;
   }
 
   public static Bitmap rotateBitmap(Bitmap source, float angle) {
@@ -30,25 +35,13 @@ public class ImageUtils {
     return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
   }
 
-  public static Bitmap cropBitmapByRectangle(Bitmap bitmap, Size screenSize, Size rectSize) {
+  public static Bitmap cropBitmapByRectangle(Bitmap bitmap, Size screenSize, int rectSize) {
     float dw = (float) bitmap.getWidth() / screenSize.getWidth();
     float dh = (float) bitmap.getHeight() / screenSize.getHeight();
-//    Log.i("bw", String.valueOf(bitmap.getWidth()));
-//    Log.i("bh", String.valueOf(bitmap.getHeight()));
-//    Log.i("rw", String.valueOf(rectSize.getWidth()));
-//    Log.i("rh", String.valueOf(rectSize.getHeight()));
-//    Log.i("sw", String.valueOf(screenSize.getWidth()));
-//    Log.i("sh", String.valueOf(screenSize.getHeight()));
-//    Log.i("dw", String.valueOf(dw));
-//    Log.i("dh", String.valueOf(dh));
-    int padding = (int) (0.04*screenSize.getWidth());
-    int w = rectSize.getWidth();
-    int h = rectSize.getHeight();
-    float x = (float) ((screenSize.getWidth() / 2.0) - w/2.0);
-    float y = (float) ((screenSize.getHeight() / 2.0) - h/2.0);
-//    Log.i("x+w", String.valueOf(Math.round(x*dw) + Math.round(w*dw)));
-//    Log.i("w", String.valueOf(bitmap.getWidth()));
-    return Bitmap.createBitmap(bitmap, Math.round(x*dw+padding), Math.round(y*dh), Math.round(w*dw-2*padding) , Math.round(h*dh));
+    int padding = (int) (0.08*screenSize.getWidth());
+    float x = (float) ((screenSize.getWidth() / 2.0) - rectSize/2.0);
+    float y = (float) ((screenSize.getHeight() / 2.0) - rectSize/2.0);
+    return Bitmap.createBitmap(bitmap, Math.round(x*dw+padding), Math.round(y*dh), Math.round(rectSize*dw-2*padding) , Math.round(rectSize*dh));
   }
 
   public static File writeToCache(Context context, Bitmap bitmap) {
